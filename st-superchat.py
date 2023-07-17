@@ -50,12 +50,8 @@ def starchat(model, myprompt, your_template):
     template = your_template
     prompt = PromptTemplate(template=template, input_variables=["myprompt"])
     llm_chain = LLMChain(prompt=prompt, llm=llm)
-    try:
-        llm_reply = llm_chain.run(myprompt)
-        reply = llm_reply.partition(' ')[0]  # Use a space as the separator
-    except Exception as e:
-        st.write(f"An error occurred during response generation: {e}")
-        return "An error occurred during response generation."
+    llm_reply = llm_chain.run(myprompt)
+    reply = llm_reply.partition(' ')[0]  # Use a space as the separator
     return reply
 
 # Initialize chat history
@@ -84,13 +80,13 @@ if myprompt := st.chat_input("What are common plant disease?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
+        
+        message_placeholder.markdown("Bot is typing...")
+        sleep(1)
+        
         res = starchat(st.session_state["hf_model"], myprompt, "\n\n\n{myprompt}\n")
-        response = res.split(" ")
-        for r in response:
-            full_response = full_response + r + " "
-            message_placeholder.markdown(full_response + "▌")
-            sleep(0.1)
-        message_placeholder.markdown(full_response)
-        asstext = f"assistant: {full_response}"
+        message_placeholder.markdown(res)
+        
+        asstext = f"assistant: {res}"
         writehistory(asstext)
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+        st.session_state.messages.append({"role": "assistant", "content": res})
