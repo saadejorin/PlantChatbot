@@ -6,8 +6,11 @@ import requests
 import os
 from time import sleep
 
-# AVATARS
-av_us = '👨‍🌾'  #"🦖"  # A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
+
+
+
+#AVATARS
+av_us = '👨‍🌾'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
 av_ass = '🤖'
 
 # FUNCTION TO LOG ALL CHAT MESSAGES INTO chathistory.txt
@@ -25,32 +28,30 @@ repo="HuggingFaceH4/starchat-beta"
 st.markdown("<h1 style='text-align: center; color: black;'>🌱PlantAI ChatBot</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; color: gray; margin-top: -30px;'><i>using Starchat-beta</i></h3>", unsafe_allow_html=True)
 
-# Define the generated questions
-generated_questions = [
-    "What are common plant crop diseases?",
-    "How does a plant's immune system work?",
-    "What causes leaf yellowing in plants?",
-    "How do nutrients affect plant growth?"
-]
+if st.button("What are common plant crop diseases?"): myprompt = "What are common plant crop diseases?"
+if st.button("How does a plant's immune system work?"): myprompt = "How does a plant's immune system work?"
+if st.button("What causes leaf yellowing in plants?"): myprompt = "What causes leaf yellowing in plants?"
+if st.button("How do nutrients affect plant growth?"): myprompt = "How do nutrients affect plant growth?"
+
 
 # Set a default model
 if "hf_model" not in st.session_state:
     st.session_state["hf_model"] = "HuggingFaceH4/starchat-beta"
 
 ### INITIALIZING STARCHAT FUNCTION MODEL
-def starchat(model, myprompt, your_template):
+def starchat(model,myprompt, your_template):
     from langchain import PromptTemplate, LLMChain
     os.environ["HUGGINGFACEHUB_API_TOKEN"] = yourHFtoken
-    llm = HuggingFaceHub(repo_id=model,
-                         model_kwargs={"min_length": 30,
-                                       "max_new_tokens": 256, "do_sample": True,
-                                       "temperature": 0.2, "top_k": 50,
-                                       "top_p": 0.95, "eos_token_id": 49155})
+    llm = HuggingFaceHub(repo_id=model ,
+                         model_kwargs={"min_length":30,
+                                       "max_new_tokens":256, "do_sample":True,
+                                       "temperature":0.2, "top_k":50,
+                                       "top_p":0.95, "eos_token_id":49155})
     template = your_template
     prompt = PromptTemplate(template=template, input_variables=["myprompt"])
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     llm_reply = llm_chain.run(myprompt)
-    reply = llm_reply.partition(' ')[0]  # Use a space as the separator
+    reply = llm_reply.partition('<|end|>')[0]
     return reply
 
 
@@ -61,32 +62,28 @@ if "messages" not in st.session_state:
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
     if message["role"] == "user":
-        with st.chat_message(message["role"], avatar=av_us):
+        with st.chat_message(message["role"],avatar=av_us):
             st.markdown(message["content"])
     else:
-        with st.chat_message(message["role"], avatar=av_ass):
+        with st.chat_message(message["role"],avatar=av_ass):
             st.markdown(message["content"])
 
 # Accept user input
-input_prompt = st.text_input("Enter your question", value="", key="user_input")
-
-if st.button("Generate a random question"):
-    input_prompt = st.selectbox("Select a question", generated_questions, key="generated_question")
-    st.text_input("Enter your question", value=input_prompt, key="user_input_text")
-
-if input_prompt:
+if myprompt := st.chat_input("What are common plant disease?"):
     # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": input_prompt})
+    st.session_state.messages.append({"role": "user", "content": myprompt})
     # Display user message in chat message container
     with st.chat_message("user", avatar=av_us):
-        st.markdown(input_prompt)
-        usertext = f"user: {input_prompt}"
+        st.markdown(myprompt)
+        usertext = f"user: {myprompt}"
         writehistory(usertext)
         # Display assistant response in chat message container
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        res = starchat(st.session_state["hf_model"], input_prompt, "\n\n\n{myprompt}\n")
+        res  =  starchat(
+                st.session_state["hf_model"],
+                myprompt, "<|system|>\n<|end|>\n<|user|>\n{myprompt}<|end|>\n<|assistant|>")
         response = res.split(" ")
         for r in response:
             full_response = full_response + r + " "
