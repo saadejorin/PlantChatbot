@@ -1,7 +1,3 @@
-if st.button("What is photosynthesis?"): myprompt = "What is photosynthesis?"
-if st.button("How does a plant's immune system work?"): myprompt = "How does a plant's immune system work?"
-if st.button("What causes leaf yellowing in plants?"): myprompt = "What causes leaf yellowing in plants?"
-if st.button("How do nutrients affect plant growth?"): myprompt = "How do nutrients affect plant growth?"
 import streamlit as st
 from huggingface_hub import InferenceClient
 from langchain import HuggingFaceHub
@@ -9,6 +5,12 @@ import requests
 # Internal usage
 import os
 from time import sleep
+
+
+if st.button("What are common plant crop diseases?"): myprompt = "What are common plant crop diseases?"
+if st.button("How does a plant's immune system work?"): myprompt = "How does a plant's immune system work?"
+if st.button("What causes leaf yellowing in plants?"): myprompt = "What causes leaf yellowing in plants?"
+if st.button("How do nutrients affect plant growth?"): myprompt = "How do nutrients affect plant growth?"
 
 #AVATARS
 av_us = '👨‍🌾'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
