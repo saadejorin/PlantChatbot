@@ -7,10 +7,7 @@ import os
 from time import sleep
 
 
-if st.button("What are common plant crop diseases?"): myprompt = "What are common plant crop diseases?"
-if st.button("How does a plant's immune system work?"): myprompt = "How does a plant's immune system work?"
-if st.button("What causes leaf yellowing in plants?"): myprompt = "What causes leaf yellowing in plants?"
-if st.button("How do nutrients affect plant growth?"): myprompt = "How do nutrients affect plant growth?"
+
 
 #AVATARS
 av_us = '👨‍🌾'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
@@ -31,7 +28,10 @@ repo="HuggingFaceH4/starchat-beta"
 st.markdown("<h1 style='text-align: center; color: black;'>🌱PlantAI ChatBot</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; color: gray; margin-top: -30px;'><i>using Starchat-beta</i></h3>", unsafe_allow_html=True)
 
-
+if st.button("What are common plant crop diseases?"): myprompt = "What are common plant crop diseases?"
+if st.button("How does a plant's immune system work?"): myprompt = "How does a plant's immune system work?"
+if st.button("What causes leaf yellowing in plants?"): myprompt = "What causes leaf yellowing in plants?"
+if st.button("How do nutrients affect plant growth?"): myprompt = "How do nutrients affect plant growth?"
 
 
 # Set a default model
