@@ -81,7 +81,16 @@ if myprompt := st.chat_input("What are common plant disease?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        res  =  starchat(
+        
+message_placeholder = st.empty()
+full_response = ""
+response = res.split(" ")
+for r in response:
+    full_response = full_response + r + " "
+    message_placeholder.markdown(full_response + "▌")
+    sleep(0.1)
+message_placeholder.markdown(full_response)
+res  =  starchat(
                 st.session_state["hf_model"],
                 myprompt, "<|system|>\n<|end|>\n<|user|>\n{myprompt}<|end|>\n<|assistant|>")
         response = res.split(" ")
