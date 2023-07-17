@@ -23,7 +23,8 @@ repo="HuggingFaceH4/starchat-beta"
 
 ### START STREAMLIT UI
 st.markdown("<h1 style='text-align: center; color: black;'>🌱PlantAI ChatBot</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center; color: black; margin-top: -30px;'><i>using Starchat-beta</i></h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: gray; margin-top: -30px;'><i>using Starchat-beta</i></h3>", unsafe_allow_html=True)
+
 
 
 
