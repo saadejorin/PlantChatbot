@@ -25,15 +25,13 @@ repo="HuggingFaceH4/starchat-beta"
 st.markdown("<h1 style='text-align: center; color: black;'>🌱PlantAI ChatBot</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; color: gray; margin-top: -30px;'><i>using Starchat-beta</i></h3>", unsafe_allow_html=True)
 
-if st.button("What are common plant crop diseases?"):
-    myprompt = "What are common plant crop diseases?"
-if st.button("How does a plant's immune system work?"):
-    myprompt = "How does a plant's immune system work?"
-if st.button("What causes leaf yellowing in plants?"):
-    myprompt = "What causes leaf yellowing in plants?"
-if st.button("How do nutrients affect plant growth?"):
-    myprompt = "How do nutrients affect plant growth?"
-
+# Define the generated questions
+generated_questions = [
+    "What are common plant crop diseases?",
+    "How does a plant's immune system work?",
+    "What causes leaf yellowing in plants?",
+    "How do nutrients affect plant growth?"
+]
 
 # Set a default model
 if "hf_model" not in st.session_state:
@@ -70,24 +68,24 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 
 # Accept user input
-if st.button("Generate a random question"):
-    myprompt = "Random question"
-else:
-    myprompt = None
+input_prompt = st.text_input("Enter your question", value="", key="user_input")
 
-if myprompt is not None:
+if st.button("Generate a random question"):
+    input_prompt = st.selectbox("Select a question", generated_questions, key="generated_question")
+
+if input_prompt:
     # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": myprompt})
+    st.session_state.messages.append({"role": "user", "content": input_prompt})
     # Display user message in chat message container
     with st.chat_message("user", avatar=av_us):
-        st.markdown(myprompt)
-        usertext = f"user: {myprompt}"
+        st.markdown(input_prompt)
+        usertext = f"user: {input_prompt}"
         writehistory(usertext)
         # Display assistant response in chat message container
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        res = starchat(st.session_state["hf_model"], myprompt, "\n\n\n{myprompt}\n")
+        res = starchat(st.session_state["hf_model"], input_prompt, "\n\n\n{myprompt}\n")
         response = res.split(" ")
         for r in response:
             full_response = full_response + r + " "
