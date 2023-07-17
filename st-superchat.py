@@ -7,7 +7,7 @@ import os
 from time import sleep
 
 #AVATARS
-av_us = './man.png'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
+av_us = './woman.png'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
 av_ass = './robot.png'
 
 # FUNCTION TO LOG ALL CHAT MESSAGES INTO chathistory.txt
