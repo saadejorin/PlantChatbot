@@ -22,7 +22,7 @@ yourHFtoken = os.getenv('HUGGINGFACE_TOKEN') #here your HF token
 repo="HuggingFaceH4/starchat-beta"
 
 ### START STREAMLIT UI
-st.title("🤗 HuggingFace Free ChatBot")
+st.title("🌱PlantAI ChatBot")
 st.subheader("using Starchat-beta")
 
 # Set a default model
@@ -60,7 +60,7 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 
 # Accept user input
-if myprompt := st.chat_input("What is an AI model?"):
+if myprompt := st.chat_input("What are common plant disease?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": myprompt})
     # Display user message in chat message container
