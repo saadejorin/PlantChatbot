@@ -22,7 +22,7 @@ yourHFtoken = os.getenv('HUGGINGFACE_TOKEN') #here your HF token
 repo="HuggingFaceH4/starchat-beta"
 
 ### START STREAMLIT UI
-st.title("🌱PlantAI ChatBot")
+st.markdown("<h1 style='text-align: center; color: black;'>🌱PlantAI ChatBot</h1>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center; color: black;'><i>using Starchat-beta</i></h2>", unsafe_allow_html=True)
 
 
