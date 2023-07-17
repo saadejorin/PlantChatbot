@@ -72,7 +72,7 @@ input_prompt = st.text_input("Enter your question", value="", key="user_input")
 
 if st.button("Generate a random question"):
     input_prompt = st.selectbox("Select a question", generated_questions, key="generated_question")
-    st.text_input("Enter your question", value=input_prompt, key="user_input")
+    st.text_input("Enter your question", value=input_prompt, key="user_input_text")
 
 if input_prompt:
     # Add user message to chat history
