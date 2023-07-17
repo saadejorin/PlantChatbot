@@ -6,9 +6,6 @@ import requests
 import os
 from time import sleep
 
-
-
-
 #AVATARS
 av_us = '👨‍🌾'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
 av_ass = '🤖'
@@ -33,7 +30,6 @@ if st.button("How does a plant's immune system work?"): myprompt = "How does a p
 if st.button("What causes leaf yellowing in plants?"): myprompt = "What causes leaf yellowing in plants?"
 if st.button("How do nutrients affect plant growth?"): myprompt = "How do nutrients affect plant growth?"
 
-
 # Set a default model
 if "hf_model" not in st.session_state:
     st.session_state["hf_model"] = "HuggingFaceH4/starchat-beta"
@@ -51,9 +47,8 @@ def starchat(model,myprompt, your_template):
     prompt = PromptTemplate(template=template, input_variables=["myprompt"])
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     llm_reply = llm_chain.run(myprompt)
-    reply = llm_reply.partition('<|end|>')[0]
+    reply = llm_reply.partition('')[0]
     return reply
-
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -82,17 +77,11 @@ if myprompt := st.chat_input("What are common plant disease?"):
         message_placeholder = st.empty()
         full_response = ""
         
-    message_placeholder = st.empty()
-    full_response = ""
-    response = res.split(" ")
-    for r in response:
-        full_response = full_response + r + " "
-        message_placeholder.markdown(full_response + "▌")
-        sleep(0.1)
-    message_placeholder.markdown(full_response)
-    res  =  starchat(
-                st.session_state["hf_model"],
-                myprompt, "<|system|>\n<|end|>\n<|user|>\n{myprompt}<|end|>\n<|assistant|>")
+        message_placeholder = st.empty()
+        full_response = ""
+        res  =  starchat(
+            st.session_state["hf_model"],
+            myprompt, "\n\n\n{myprompt}\n")
         response = res.split(" ")
         for r in response:
             full_response = full_response + r + " "
