@@ -23,7 +23,8 @@ repo="HuggingFaceH4/starchat-beta"
 
 ### START STREAMLIT UI
 st.title("🌱PlantAI ChatBot")
-st.subheader("using Starchat-beta")
+st.markdown("<h2 style='text-align: center; color: black;'><i>using Starchat-beta</i></h2>", unsafe_allow_html=True)
+
 
 # Set a default model
 if "hf_model" not in st.session_state:
