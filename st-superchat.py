@@ -44,7 +44,7 @@ def starchat(model,myprompt, your_template):
     os.environ["HUGGINGFACEHUB_API_TOKEN"] = yourHFtoken
     llm = HuggingFaceHub(repo_id=model ,
                          model_kwargs={"min_length":30,
-                                       "max_new_tokens":256, "do_sample":True,
+                                       "max_new_tokens":1000, "do_sample":True,
                                        "temperature":0.2, "top_k":50,
                                        "top_p":0.95, "eos_token_id":49155})
     template = your_template
