@@ -7,8 +7,8 @@ import os
 from time import sleep
 
 #AVATARS
-av_us = 'https://github.com/saadejorin/PlantChatbot/blob/main/man.png'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
-av_ass = 'https://github.com/saadejorin/PlantChatbot/blob/main/robot.png'
+av_us = '👨‍🌾'  #"🦖"  #A single emoji, e.g. "🧑‍💻", "🤖", "🦖". Shortcodes are not supported.
+av_ass = '🤖'
 
 # FUNCTION TO LOG ALL CHAT MESSAGES INTO chathistory.txt
 def writehistory(text):
