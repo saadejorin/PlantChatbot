@@ -47,7 +47,7 @@ def starchat(model,myprompt, your_template):
     prompt = PromptTemplate(template=template, input_variables=["myprompt"])
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     llm_reply = llm_chain.run(myprompt)
-    reply = llm_reply.partition('')[0]
+    reply = llm_reply.partition(' ')[0]
     return reply
 
 # Initialize chat history
